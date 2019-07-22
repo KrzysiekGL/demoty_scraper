@@ -7,6 +7,27 @@ from bs4 import BeautifulSoup as bs4bs
 import re
 import os
 
+print('How many pages to sracpe?')
+pagesIsANumber = False
+while not pagesIsANumber:
+    pages = input()
+    pagesIsANumber = re.search('^([1-9][0-9]*)\s*$', pages)
+    if pagesIsANumber:
+        print('Scrapping ', pages, ' pages of demots')
+        pages = int(pages)
+    else: print('Wrong number of pages. Please, use the number between 1 and infinity:')
+
+for page in range(1,pages+1):
+    time.sleep(3)
+    url = 'https://demotywatory.pl/page/' + str(page)
+    response = requests.get(url)
+    print('page number ', page, ' response ', response)
+    soup = bs4bs(response, 'lxml')
+    
+
+
+
+'''
 url = 'https://demotywatory.pl/'
 response = requests.get(url)
 print(response)
@@ -28,3 +49,4 @@ for i in range(len(imgTable)):
         print('Downloading img file: ', oneSrc)
         urllib.request.urlretrieve(oneSrc, '/tmp/demot/' + oneSrc[oneSrc.find('/uploads')+1:])
         time.sleep(3)
+'''
