@@ -14,7 +14,11 @@ while not pagesIsANumber:
     pagesIsANumber = re.search('^([1-9][0-9]*)\s*$', pages)
     if pagesIsANumber:
         print('Scrapping ', pages, ' pages of demots')
-        pages = int(pages)
+        try:
+            pages = int(pages)
+        except:
+            print("Couldn't convert 'pages' var into int type. Terminating program.")
+            sys.exit()
     else: print('Wrong number of pages. Please, use the number between 1 and infinity:')
 
 for page in range(1,pages+1):
@@ -22,8 +26,8 @@ for page in range(1,pages+1):
     url = 'https://demotywatory.pl/page/' + str(page)
     response = requests.get(url)
     print('page number ', page, ' response ', response)
-    soup = bs4bs(response, 'lxml')
-    
+    soup = bs4bs(response.text, 'lxml')
+
 
 
 
